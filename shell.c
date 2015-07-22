@@ -18,7 +18,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#include "csystem.c"
+#include "csystem.h"
 
 #define BSIZE 256
 
