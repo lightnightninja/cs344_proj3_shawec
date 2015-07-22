@@ -4,16 +4,19 @@ CFLAGS = -std=c99 -g
 
 TARGET = shell
 
-SOURCE = shell.c csystem.c
+SOURCE = shell.o csystem.o
 
-INCLUDES = csystem.h
-default: shell necho reverse 
+INCLUDES =
+
+default: compile necho reverse
 
 compile: ${SOURCE} ${INCLUDES}
 	${CC} ${CFLAGS} ${SOURCE} -o ${TARGET} ${LDFLAGS}
 
-debug: ${SOURCE} ${INCLUDES}
-	${CC} ${CFLAGS} ${SOURCE} -o ${TARGET} ${LDFLAGS} -DDEBUG
+shell: shell.o
+    ${CC} ${CFLAGS} -c shell.c -o shell.o
+csystem: csystem.o
+    ${CC} ${CFLAGS} -c csystem.c csystem.h -o csystem.o
 
 necho: necho.c
 	${CC} ${CFLAGS} necho.c -o necho
