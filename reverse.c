@@ -18,8 +18,10 @@ int main(){
     fgets(buffer, 128, stdin);
     for(i = 0; buffer[i] != '\n' || i < 128; i++);
 
-    for(i = i; i > 0; i--, j++)
+    for(; i > 0; i--){
         temp[i] = buffer[j];
+        j++;
+    }
 
     fputs(buffer, stdout);
 
