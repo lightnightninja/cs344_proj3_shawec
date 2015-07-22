@@ -60,6 +60,7 @@ int csystem(char **args, char **envp, int arg_count) {
      since they could really mess things up for later. For will either
      reutrn -1 when it fails, or 0 when it succeeds, however it rarely fails.
      */
+     printf("error here at start of system?\n");
     switch (childPID = fork()) {
 
         case -1: /* Error */
@@ -75,7 +76,7 @@ int csystem(char **args, char **envp, int arg_count) {
             if (sigOrQuit.sa_handler != SIG_IGN) {
                 sigaction(SIGQUIT, &sigDefault, NULL);
             }
-
+            printf("error here before execve?\n");
             execve(args[0], args, envp);
 
             break;

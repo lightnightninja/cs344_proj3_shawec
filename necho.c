@@ -12,7 +12,8 @@ int main(){
 
     char buffer[128];
 
-    fgets(buffer, 128, stdout);
+    fgets(buffer, 128, stdin);
+    puts(buffer);
 
     return 0;
     
