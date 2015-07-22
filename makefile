@@ -4,8 +4,9 @@ CFLAGS = -std=c99 -g
 
 TARGET = shell
 
-SOURCE = shell.c csystem.h
+SOURCE = shell.c csystem.c
 
+INCLUDES = csystem.h
 default: shell necho reverse 
 
 compile: ${SOURCE} ${INCLUDES}
