@@ -1,3 +1,6 @@
+#define _POSIX_C_SOURCE 200809L
+#define _BSD_SOURCE
+
 /*  Credit:
  TLPI was used for a lot of the implementation of this, as noted in the comments.
  I will not cite it specifically for the rest of the code, however, anything that

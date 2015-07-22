@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+#define _BSD_SOURCE
 //
 //  shell.c
 //  cs344_proj3_shawec
@@ -16,7 +18,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#include "csystem.h"
+#include "csystem.c"
 
 #define BSIZE 256
 

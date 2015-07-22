@@ -1,3 +1,6 @@
+#define _POSIX_C_SOURCE 200809L
+#define _BSD_SOURCE
+
 //
 //  csystem.h
 //  cs344_proj3_shawec
