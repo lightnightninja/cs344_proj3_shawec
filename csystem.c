@@ -10,6 +10,11 @@
  */
 
 #include "csystem.h"
+#include <unistd.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <errno.h>
 
 int csystem(char **args, char **envp, int arg_count) {
 
