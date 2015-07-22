@@ -15,10 +15,12 @@ compile: ${SOURCE} ${INCLUDES}
 
 shell: shell.o
     ${CC} ${CFLAGS} -c shell.c -o shell.o
+
 csystem: csystem.o
     ${CC} ${CFLAGS} -c csystem.c csystem.h -o csystem.o
 
 necho: necho.c
-	${CC} ${CFLAGS} necho.c -o necho
+    ${CC} ${CFLAGS} necho.c -o necho
+
 reverse: reverse.c
-	${CC} ${CFLAGS} reverse.c -o reverse
+    ${CC} ${CFLAGS} reverse.c -o reverse
