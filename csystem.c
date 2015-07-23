@@ -82,7 +82,7 @@ int csystem(char **args, char **envp, int arg_count) {
 
             /*this is the biggest thing that is different from the TLPI version, as it's using our shell to manage things.*/
             if (access(args[0],F_OK) != -1){
-                status = 0;
+                status = -1;
                 execve(args[0], args, envp);
                 printf("not accessed\n");
                 status = -1;
@@ -91,7 +91,7 @@ int csystem(char **args, char **envp, int arg_count) {
             else{
                 //execve(nofile[0], nofile, NULL);
                 printf("Command not recognized\n");
-                status = 0;
+                status = -1;
             }
             break;
 
@@ -102,12 +102,12 @@ int csystem(char **args, char **envp, int arg_count) {
                     printf("xx ");
 
                 }
-                status = 0;
+                status = -1;
                 break;
             }
 
                 printf("I'm done waiting\n");
-                status = 0;
+                status = -1;
 
     }
     printf("I, %i, am about to exit.\n", getpid());
