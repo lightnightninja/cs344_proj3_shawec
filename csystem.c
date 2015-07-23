@@ -40,8 +40,6 @@ int csystem(char **args, char **envp, int arg_count) {
     int status = 0;
     //place holder to return errno to original value after program is done
     int sErrno;
-    char *namefile = {"./shell"};
-    const char *nofile[] = {"./shell", "exit", NULL};
     /* We need to block sigchild */
     sigemptyset(&block);
     /*Creating the empty set to handle what we put in it to block*/
@@ -56,6 +54,7 @@ int csystem(char **args, char **envp, int arg_count) {
     sigemptyset(&sigIgnore.sa_mask); //setting up the set of signals to ignore
     sigaction(SIGINT, &sigIgnore, &sigOrInt); //setting SIGINt as something we need to ignore
     sigaction(SIGQUIT, &sigIgnore, &sigOrQuit); //setting SIGQUIT as something else we want to ignore
+    const char **noaccess = {"./shell", "exit", NULL};
 
     /*  Okay, time to start actually creating processes, now that we've set
      it up so that we don't have to worry about SIGINT, and SIGQUIT,
@@ -63,7 +62,7 @@ int csystem(char **args, char **envp, int arg_count) {
      reutrn -1 when it fails, or 0 when it succeeds, however it rarely fails.
      */
      printf("error here at start of system?\n");
-    switch (childPID = fork()) {
+        switch (childPID = fork()) {
 
         case -1: /* Error */
             status = -1; //we don't want to return/exit, we need to unblock stuff after
@@ -84,19 +83,19 @@ int csystem(char **args, char **envp, int arg_count) {
             /*this is the biggest thing that is different from the TLPI version, as it's using our shell to manage things.*/
             if (access(args[0],F_OK) != -1){
                 execve(args[0], args, envp);
-                printf("accessed?\n");
+                printf("not accessed\n");
                 status = 0;
             }
             else{
                 //execve(nofile[0], nofile, NULL);
+                printf("Command not recognized\n");
                 status = 0;
             }
-            printf("error here after execve?\n");
             break;
 
         default: /* Parent */
             printf("childs pid: %i\n", childPID);
-            while (waitpid(childPID, &status, 0) != 0){
+            while (waitpid(childPID, &status, 0) == -1){
                 if(errno != EINTR){
                     printf("xx ");
 
@@ -105,8 +104,10 @@ int csystem(char **args, char **envp, int arg_count) {
                 break;
             }
 
-    }
+            status = 0;
 
+    }
+    printf("I, %i, am about to exit.\n", getpid());
     sErrno = errno; /* The following may change 'errno' */
     sigprocmask(SIG_SETMASK, &original, NULL);
     sigaction(SIGINT, &sigOrInt, NULL);

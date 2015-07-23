@@ -177,7 +177,7 @@ int main(int argc, char **argv) {
 
         printf("pid before sys: %i\n", getpid());
         args = get_args(&num); //gets the array of arguments, formatted all nice
-
+        //DUBUG system(args);
         for (int i = 0; i < num; i++) {
             puts(args[i]);
         }
@@ -193,7 +193,9 @@ int main(int argc, char **argv) {
         }
         printf("returning from csystem\n");
 
-        printf("pid: %i\n", getpid());
+
+        printf("my pid: %i\n", getpid());
+        printf("parent pid pid: %i\n", getppid());
 
 
     }
