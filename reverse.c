@@ -35,7 +35,7 @@ int main(){
     fgets(buffer, 128, stdin);
     ret = strrev(buffer);
     fputs(ret, stdout);
-    fputs('\n', stdout);
+    printf("\n");
 
     return 0;
 
