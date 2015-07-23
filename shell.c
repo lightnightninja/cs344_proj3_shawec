@@ -146,7 +146,7 @@ char *get_arg(int *n) {
 
     }
     return args; //returning what is hopefully a good array ^_^
-}
+}//was mostly for testing
 
 /* We all know what main does, doesn't need argv or argc, thsoe are now internal. */
 int main() {
@@ -168,7 +168,10 @@ int main() {
     while (exit != 1) {
 
         args = get_args(&num); //gets the array of arguments, formatted all nice
-
+        printf("arggggggs\n");
+        for (int i = 0; i < num; i++) {
+            puts(args[i]);
+        }
         if (strncmp(args[0], "--help", 6) == 0) {
             help();
         }
