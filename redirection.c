@@ -31,8 +31,11 @@ int redir(char **args, char **envp, int after, int which){
     int in_save = 0, out_save = 0;
     char **newargs;
 
+    newargs = (char **)malloc(after * sizeof(char *));
     for (int i = 0; i < after; i++){
+        newargs[i] = (char *)malloc(sizeof(args[i])*sizeof(char));
         newargs[i] = args[i];
+
     }
 
     switch (childPID = fork()) {
