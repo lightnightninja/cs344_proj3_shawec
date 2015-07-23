@@ -26,11 +26,7 @@ int main(int argc, char **argv){
     int len = 0;
     for (int i = 1; i < argc; i++){
         for (int j = 0; argv[i][j] != ' ' && argv[i][j] != '\0' && argv[i][j] != '\n'; j++){
-            if (argv[i][j] != '\0')
-                buffer[len] = ' ';
-
-            else
-                buffer[len] = argv[i][j];
+            buffer[len] = argv[i][j];
             len++;
         }
         len++;
