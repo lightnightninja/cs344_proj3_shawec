@@ -106,8 +106,8 @@ int csystem(char **args, char **envp, int arg_count) {
                 break;
             }
 
-                printf("I'm done waiting\n");
-                status = -1;
+            printf("I'm done waiting\n");
+            status = 0;
 
     }
     printf("I, %i, am about to exit.\n", getpid());
