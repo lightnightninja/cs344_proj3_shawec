@@ -39,12 +39,14 @@ int redir(char **args, char **envp, int after, int which){
         case 0:
             if (in == 1) { // < in
                 fd = open(args[after], O_RDONLY, 0);
+                 printf("Checking in!\n");
                 fd = in_save;
                 dup2(fd, STDIN_FILENO); //duping stdin
                 close(fd);//closing it so that it'll get used
             }
             if (out == 1) { // > out
                 fd = open(args[after], O_WRONLY | O_CREAT | O_TRUNC,  0664); //creating a rw-rw-r-- file
+                printf("Checking out!\n");
                 fd = out_save;
                 dup2(fd, STDOUT_FILENO);//setting the fd to stdout
                 close(fd);//closing "stdout" so that it can be used
