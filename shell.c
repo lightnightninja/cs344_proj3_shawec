@@ -154,7 +154,7 @@ char *get_arg(int *n) {
 int main(int argc, char **argv) {
 
     char **args;
-    char **envp = {NULL};
+    char **envp = {"PATH=/usr/bin:/bin:." ,NULL};
     int exit = 0;
     int which;
     int exec = 1;
