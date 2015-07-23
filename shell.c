@@ -187,7 +187,8 @@ int main(int argc, char **argv) {
         if (strncmp(args[0], "exit", 4) == 0)
             exit = 1;
         if (access(args[0],F_OK) != -1) { //this is needed to make sure we aren't accessign something not there.
-            csystem(args, envp, num);
+            if(csystem(args, envp, num) == -1)
+                return 0;
             if(num != 0)
                 free_arr((void **)args, num);
         }
