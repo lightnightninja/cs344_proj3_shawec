@@ -149,8 +149,9 @@ char *get_arg(int *n) {
 }//was mostly for testing
 
 /* We all know what main does, doesn't need argv or argc, thsoe are now internal. */
-int main() {
+int main(int argc, char **argv) {
 
+    printf("argc = %i\n", argc);
 
     char **args;
     char **envp = {NULL};
@@ -160,15 +161,23 @@ int main() {
     //other than moral support, on the assignments.
     //Yay for having simple things pointed out!
     int num = (int)malloc(sizeof(int));
-
+    if (strncmp(argv[0], "exit", 4) == 0) {
+        return 0;
+    }
+    if (argc != 1) {
+        puts(argv[1]);
+        if (strncmp(argv[1], "exit", 4) == 0)
+            return 0;
+    }
 
     //ADDMEsystem("clear");//clearing the screen for when the user enters the shell
     /* Creating a 1d array to take in args with */
     for(int i = 0; i < num; i++);
     while (exit != 1) {
 
+        printf("pid before sys: %i\n", getpid());
         args = get_args(&num); //gets the array of arguments, formatted all nice
-        printf("arggggggs\n");
+
         for (int i = 0; i < num; i++) {
             puts(args[i]);
         }
@@ -177,10 +186,15 @@ int main() {
         }
         if (strncmp(args[0], "exit", 4) == 0)
             exit = 1;
+        if (access(args[0],F_OK) != -1) { //this is needed to make sure we aren't accessign something not there.
+            csystem(args, envp, num);
+            if(num != 0)
+                free_arr((void **)args, num);
+        }
+        printf("returning from csystem\n");
 
-        csystem(args, envp, num);
-        if(num != 0)
-            free_arr((void **)args, num);
+        printf("pid: %i\n", getpid());
+
 
     }
 

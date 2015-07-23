@@ -37,10 +37,11 @@ int csystem(char **args, char **envp, int arg_count) {
     //where we store the PID of child
     pid_t childPID;
     //used to catch errno while the program is running
-    int status;
+    int status = 0;
     //place holder to return errno to original value after program is done
     int sErrno;
-
+    char *namefile = {"./shell"};
+    const char *nofile[] = {"./shell", "exit", NULL};
     /* We need to block sigchild */
     sigemptyset(&block);
     /*Creating the empty set to handle what we put in it to block*/
@@ -78,18 +79,30 @@ int csystem(char **args, char **envp, int arg_count) {
                 sigaction(SIGQUIT, &sigDefault, NULL);
             }
             printf("error here before execve?\n");
-            execve(args[0], args, envp);
 
-            break;
+
             /*this is the biggest thing that is different from the TLPI version, as it's using our shell to manage things.*/
+            if (access(args[0],F_OK) != -1){
+                execve(args[0], args, envp);
+                printf("accessed?\n");
+            }
+            else{
+                //execve(nofile[0], nofile, NULL);
+                status = 0;
+            }
+            printf("error here after execve?\n");
+            break;
 
         default: /* Parent */
+            printf("childs pid: %i\n", childPID);
             while (waitpid(childPID, &status, 0) == -1){
                 if(errno != EINTR){
+                    printf("xx ");
                     status = -1;
                     break;
                 }
-        }
+            }
+
     }
 
     sErrno = errno; /* The following may change 'errno' */
