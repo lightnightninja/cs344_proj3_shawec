@@ -17,6 +17,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <stdio.h>
 
 int csystem(char **, char **, int);
 
