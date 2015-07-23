@@ -82,19 +82,18 @@ int csystem(char **args, char **envp, int arg_count) {
             if (access(args[0],F_OK) != -1){
                 status = 0;
                 execve(args[0], args, envp);
-                printf("not accessed\n");
+                fprintf(stderr, "not accessed\n");
                 status = -1;
 
             }
             else{
                 //execve(nofile[0], nofile, NULL);
-                printf("Command not recognized\n");
+                fprintf(stderr, "Command not recognized\n");
                 status = -1;
             }
             break;
 
         default: /* Parent */
-            printf("childs pid: %i\n", childPID);
             while (waitpid(childPID, &status, 0) == -1){
                 if(errno != EINTR){
                     printf("xx ");
@@ -103,12 +102,9 @@ int csystem(char **args, char **envp, int arg_count) {
                 status = -1;
                 break;
             }
-
-            printf("I'm done waiting\n");
             status = 0;
 
     }
-    printf("I, %i, am about to exit.\n", getpid());
     sErrno = errno; /* The following may change 'errno' */
     sigprocmask(SIG_SETMASK, &original, NULL);
     sigaction(SIGINT, &sigOrInt, NULL);

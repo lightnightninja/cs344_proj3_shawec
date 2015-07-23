@@ -184,17 +184,17 @@ int main(int argc, char **argv) {
         }
 
         for (int i = 0; i < num; i++) {
-            if (args[i][0] == '<') {
+            if (args[i][0] == '<' && access(args[0],F_OK) != -1) {
                 which = 0;
                 exec = 0;
                 redir(args, envp, i, which);
             }
-            if (args[i][0] == '>') {
+            if (args[i][0] == '>' && access(args[0],F_OK) != -1) {
                 exec = 0;
                 which = 1;
                 redir(args, envp, i, which);
             }
-            if (args[i][0] == '|') {
+            if (args[i][0] == '|' && access(args[0],F_OK) != -1) {
                 exec = 0;
                 //ADDMEpiper(args, envp, i);
             }
