@@ -85,6 +85,7 @@ int csystem(char **args, char **envp, int arg_count) {
             if (access(args[0],F_OK) != -1){
                 execve(args[0], args, envp);
                 printf("accessed?\n");
+                status = 0;
             }
             else{
                 //execve(nofile[0], nofile, NULL);
@@ -95,12 +96,13 @@ int csystem(char **args, char **envp, int arg_count) {
 
         default: /* Parent */
             printf("childs pid: %i\n", childPID);
-            while (waitpid(childPID, &status, 0) == -1){
+            while (waitpid(childPID, &status, 0) != 0){
                 if(errno != EINTR){
                     printf("xx ");
-                    status = -1;
-                    break;
+
                 }
+                status = 0;
+                break;
             }
 
     }
