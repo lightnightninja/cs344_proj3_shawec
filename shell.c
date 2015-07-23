@@ -19,8 +19,8 @@
 #include <sys/wait.h>
 
 #include "csystem.h"
-#include "redirection.c"
-#include "piping.c"
+#include "redirection.h"
+#include "piping.h"
 
 #define BSIZE 256
 
