@@ -28,9 +28,7 @@ int redir(char **args, char **envp, int after, int which){
         in  = 1;
     else
         out = 1;
-    int in_save, out_save;
-
-    fflush(STDIN_FILENO); //make sure there is nothing left in stdin
+    int in_save = 0, out_save = 0;
 
     switch (childPID = fork()) {
         case -1:
