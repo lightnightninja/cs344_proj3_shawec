@@ -26,7 +26,7 @@ char* concat(char *s1, char *s2)
 {
     char *result = (char *)malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
     //in real code you would check for errors in malloc here
-    strncpy(result, s1, strnlen(s1));
+    strncpy(result, s1, strlen(s1));
     strcat(result, s2);
     return result;
 }
