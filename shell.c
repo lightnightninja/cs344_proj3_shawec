@@ -190,11 +190,12 @@ int main(int argc, char **argv) {
             if (args[i][0] == '<') {
                 which = 0;
                 exec = 0;
-                redir(args, envp, i, which); //specifies
+                redir(args, envp, i, which);
             }
             if (args[i][0] == '>') {
                 exec = 0;
                 which = 1;
+                redir(args, envp, i, which);
             }
             if (args[i][0] == '|') {
                 exec = 0;
