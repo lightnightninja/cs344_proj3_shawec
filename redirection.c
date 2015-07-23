@@ -29,6 +29,11 @@ int redir(char **args, char **envp, int after, int which){
     else
         out = 1;
     int in_save = 0, out_save = 0;
+    char **newargs;
+
+    for (int i = 0; i < after; i++){
+        newargs[i] = args[i];
+    }
 
     switch (childPID = fork()) {
         case -1:
@@ -50,7 +55,7 @@ int redir(char **args, char **envp, int after, int which){
                 dup2(fd, STDOUT_FILENO);//setting the fd to stdout
                 close(fd);//closing "stdout" so that it can be used
             }
-            execve(args[0], args, envp);
+            execve(newargs[0], newargs, envp);
             perror("Uh oh, we failed to open the file.");
             status = -1;
         default:

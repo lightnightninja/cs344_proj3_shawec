@@ -153,8 +153,6 @@ char *get_arg(int *n) {
 /* We all know what main does, doesn't need argv or argc, thsoe are now internal. */
 int main(int argc, char **argv) {
 
-    printf("argc = %i\n", argc);
-
     char **args;
     char **envp = {NULL};
     int exit = 0;
@@ -179,7 +177,6 @@ int main(int argc, char **argv) {
     for(int i = 0; i < num; i++);
     while (exit != 1) {
         exec = 1;
-        printf("pid before sys: %i\n", getpid());
         args = get_args(&num); //gets the array of arguments, formatted all nice
         //DUBUG system(args);
         for (int i = 0; i < num; i++) {
@@ -214,12 +211,6 @@ int main(int argc, char **argv) {
             //if(num != 0)
                 //free_arr((void **)args, num);
         }
-        printf("returning from csystem\n");
-
-
-        printf("my pid: %i\n", getpid());
-        printf("parent pid pid: %i\n", getppid());
-
 
     }
 
