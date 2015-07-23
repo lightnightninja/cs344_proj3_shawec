@@ -54,7 +54,7 @@ int csystem(char **args, char **envp, int arg_count) {
     sigemptyset(&sigIgnore.sa_mask); //setting up the set of signals to ignore
     sigaction(SIGINT, &sigIgnore, &sigOrInt); //setting SIGINt as something we need to ignore
     sigaction(SIGQUIT, &sigIgnore, &sigOrQuit); //setting SIGQUIT as something else we want to ignore
-    const char **noaccess = {"./shell", "exit", NULL};
+    char *noaccess[] = {"./shell", "exit", NULL};
 
     /*  Okay, time to start actually creating processes, now that we've set
      it up so that we don't have to worry about SIGINT, and SIGQUIT,
