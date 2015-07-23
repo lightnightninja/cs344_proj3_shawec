@@ -54,15 +54,14 @@ int csystem(char **args, char **envp, int arg_count) {
     sigemptyset(&sigIgnore.sa_mask); //setting up the set of signals to ignore
     sigaction(SIGINT, &sigIgnore, &sigOrInt); //setting SIGINt as something we need to ignore
     sigaction(SIGQUIT, &sigIgnore, &sigOrQuit); //setting SIGQUIT as something else we want to ignore
-    char *noaccess[] = {"./shell", "exit", NULL};
+    //char *noaccess[] = {"./shell", "exit", NULL};
 
     /*  Okay, time to start actually creating processes, now that we've set
      it up so that we don't have to worry about SIGINT, and SIGQUIT,
      since they could really mess things up for later. For will either
      reutrn -1 when it fails, or 0 when it succeeds, however it rarely fails.
      */
-     printf("error here at start of system?\n");
-        switch (childPID = fork()) {
+    switch (childPID = fork()) {
 
         case -1: /* Error */
             status = -1; //we don't want to return/exit, we need to unblock stuff after
@@ -77,7 +76,6 @@ int csystem(char **args, char **envp, int arg_count) {
             if (sigOrQuit.sa_handler != SIG_IGN) {
                 sigaction(SIGQUIT, &sigDefault, NULL);
             }
-            printf("error here before execve?\n");
 
 
             /*this is the biggest thing that is different from the TLPI version, as it's using our shell to manage things.*/

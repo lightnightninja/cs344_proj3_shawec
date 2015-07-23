@@ -19,6 +19,8 @@
 #include <sys/wait.h>
 
 #include "csystem.h"
+#include "redirection.c"
+#include "piping.c"
 
 #define BSIZE 256
 
@@ -156,6 +158,8 @@ int main(int argc, char **argv) {
     char **args;
     char **envp = {NULL};
     int exit = 0;
+    int which;
+    int exec = 1;
     //Mallocing was how I could make num actually changable.
     //This was the first time Loren helped with anything,
     //other than moral support, on the assignments.
@@ -174,19 +178,36 @@ int main(int argc, char **argv) {
     /* Creating a 1d array to take in args with */
     for(int i = 0; i < num; i++);
     while (exit != 1) {
-
+        exec = 1;
         printf("pid before sys: %i\n", getpid());
         args = get_args(&num); //gets the array of arguments, formatted all nice
         //DUBUG system(args);
         for (int i = 0; i < num; i++) {
             puts(args[i]);
         }
+
+        for (int i = 0; i < num; i++) {
+            if (args[i][0] == '<') {
+                which = 0;
+                exec = 0;
+                redir(args, envp, i, which); //specifies
+            }
+            if (args[i][0] == '>') {
+                exec = 0;
+                which = 1;
+            }
+            if (args[i][0] == '|') {
+                exec = 0;
+                //ADDMEpiper(args, envp, i);
+            }
+        }
+
         if (strncmp(args[0], "--help", 6) == 0) {
             help();
         }
         if (strncmp(args[0], "exit", 4) == 0)
             exit = 1;
-        if (access(args[0],F_OK) != -1) { //this is needed to make sure we aren't accessign something not there.
+        if (access(args[0],F_OK) != -1 && exec == 1) { //this is needed to make sure we aren't accessign something not there.
             if(csystem(args, envp, num) == -1)
                 return 0;
             //if(num != 0)
