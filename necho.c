@@ -24,7 +24,7 @@ int main(int argc, char **argv){
 
     char buffer[128];
     int len = 0;
-    for (int i = 0; i < argc; i++){
+    for (int i = 1; i < argc; i++){
         for (int j = 0; argv[i][j] != ' ' && argv[i][j] != '\0' && argv[i][j] != '\n'; j++){
             buffer[len] = argv[i][j];
             len++;
