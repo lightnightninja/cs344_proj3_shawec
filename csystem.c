@@ -82,7 +82,7 @@ int csystem(char **args, char **envp, int arg_count) {
 
             /*this is the biggest thing that is different from the TLPI version, as it's using our shell to manage things.*/
             if (access(args[0],F_OK) != -1){
-                status = -1;
+                status = 0;
                 execve(args[0], args, envp);
                 printf("not accessed\n");
                 status = -1;

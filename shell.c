@@ -189,8 +189,8 @@ int main(int argc, char **argv) {
         if (access(args[0],F_OK) != -1) { //this is needed to make sure we aren't accessign something not there.
             if(csystem(args, envp, num) == -1)
                 return 0;
-            if(num != 0)
-                free_arr((void **)args, num);
+            //if(num != 0)
+                //free_arr((void **)args, num);
         }
         printf("returning from csystem\n");
 
