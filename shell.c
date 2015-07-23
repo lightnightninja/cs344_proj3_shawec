@@ -1,5 +1,6 @@
 #define _POSIX_C_SOURCE 200809L
 #define _BSD_SOURCE
+
 //
 //  shell.c
 //  cs344_proj3_shawec
@@ -137,7 +138,7 @@ char *get_arg(int *n) {
         return args; //we'll do this before we bother taking space.
     }
     for(len = 0; buffer[len] != '\n' || len < BSIZE; len++);
-    args = malloc(len*sizeof(char));
+    args = malloc(len * sizeof(char));
     /* Assigning memory for the args, in order to keep track of them for later */
     for (int i = 0; i < len; i++) { //itterating through buffer
 
@@ -179,9 +180,9 @@ int main(int argc, char **argv) {
         exec = 1;
         args = get_args(&num); //gets the array of arguments, formatted all nice
         //DUBUG system(args);
-        for (int i = 0; i < num; i++) {
-            puts(args[i]);
-        }
+//        for (int i = 0; i < num; i++) {
+//            puts(args[i]);
+//        }
 
         for (int i = 0; i < num; i++) {
             if (args[i][0] == '<' && access(args[0],F_OK) != -1) {

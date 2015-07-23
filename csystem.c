@@ -19,6 +19,17 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <string.h>
+
+/* Cite: */
+char* concat(char *s1, char *s2)
+{
+    char *result = (char *)malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
+    //in real code you would check for errors in malloc here
+    strncpy(result, s1, strnlen(s1);
+    strcat(result, s2);
+    return result;
+}
 
 int csystem(char **args, char **envp, int arg_count) {
 
@@ -47,6 +58,7 @@ int csystem(char **args, char **envp, int arg_count) {
     /*adding SIGCHILD to the list that we well next block*/
     sigprocmask(SIG_BLOCK, &block, &original);
     /*this is setting block to be the new set, and storing the old set in orginal (sigprocmask(2)) of the man pages*/
+    char *libs;
 
     /* Now we need to ignore SIGINT and SIGQUIT */
     sigIgnore.sa_handler = SIG_IGN; //this sets it so we'll be using ignore when we call sigprocmask
@@ -77,11 +89,13 @@ int csystem(char **args, char **envp, int arg_count) {
                 sigaction(SIGQUIT, &sigDefault, NULL);
             }
 
+            libs = concat("/bin/", args[0]);
 
             /*this is the biggest thing that is different from the TLPI version, as it's using our shell to manage things.*/
             if (access(args[0],F_OK) != -1){
                 status = 0;
                 execve(args[0], args, envp);
+                execve(libs, args, envp);
                 fprintf(stderr, "not accessed\n");
                 status = -1;
 
