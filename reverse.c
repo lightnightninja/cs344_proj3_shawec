@@ -5,24 +5,15 @@
 //  Created by Cierra Shawe on 7/22/15.
 //  Copyright (c) 2015 Cierra Shawe. All rights reserved.
 //
-
 #include <stdio.h>
+#include <string.h>
 
 int main(){
 
     char buffer[128];
-    char temp[128];
-    int j = 0;
-    int i;
 
     fgets(buffer, 128, stdin);
-    for(i = 0; buffer[i] != '\n' || i < 128; i++);
-
-    for(; i > 0; i--){
-        temp[i] = buffer[j];
-        j++;
-    }
-
+    strrev(buffer);
     fputs(buffer, stdout);
 
     return 0;
